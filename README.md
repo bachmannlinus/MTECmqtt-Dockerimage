@@ -1,7 +1,7 @@
 # MTECmqtt-Dockerimage for MTEC-Energybutler
 
 ## Introduction
-Thanks to the MTECmqtt-Project from croedel (https://github.com/croedel/MTECmqtt) Ì have made an Dockerimage that runs the pythonscripts from the Project.
+Thanks to the MTECmqtt-Project from croedel (https://github.com/croedel/MTECmqtt) I have made an Dockerimage that runs the pythonscripts from the Project.
 
 ## Pull Image
 ```
