@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#
 """
 Modbus API for M-TEC Energybutler
 (c) 2023 by Christian Rödel 
