@@ -14,6 +14,7 @@
 #  hass_value_template: "{{ value | round(1) }}"
 #  hass_state_class: measurement 
 
+
 #------------------------------------------------------------------
 # Calculated pseudo-registers
 

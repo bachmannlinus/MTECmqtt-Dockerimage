@@ -7,7 +7,7 @@ Auto discovery for home assistant
 from config import cfg, register_map
 import logging
 import json
-import mqtt
+from mqtt import mqtt_publish
 
 #---------------------------------------------------
 class HassIntegration:
@@ -43,13 +43,13 @@ class HassIntegration:
   def send_discovery_info( self ):
     logging.info('Sending home assistant discovery info')
     for device in self.devices_array:
-      mqtt.mqtt_publish( topic=device[0], payload=device[1] ) 
+      mqtt_publish( topic=device[0], payload=device[1] ) 
 
   #---------------------------------------------------
   def send_unregister_info( self ):
     logging.info('Sending info to unregister from home assistant')
     for device in self.devices_array:
-      mqtt.mqtt_publish( topic=device[0], payload="" ) 
+      mqtt_publish( topic=device[0], payload="" ) 
 
   #---------------------------------------------------
   def _build_automation_array( self ):
@@ -77,18 +77,11 @@ class HassIntegration:
           break
 
       if item["group"] and do_hass_registration: 
-        if ( (item["group"] in ["now-base", "day", "total", "config"]) or 
-          (item["group"]=="now-grid" and cfg['ENABLE_GRID_DATA']) or
-          (item["group"]=="now-inverter" and cfg['ENABLE_INVERTER_DATA']) or
-          (item["group"]=="now-backup" and cfg['ENABLE_BACKUP_DATA']) or
-          (item["group"]=="now-battery" and cfg['ENABLE_BATTERY_DATA']) or
-          (item["group"]=="now-pv" and cfg['ENABLE_PV_DATA']) 
-        ):
-          component_type = item.get("hass_component_type", "sensor")
-          if component_type == "sensor":
-            self._append_sensor(item)   
-          if component_type == "binary_sensor":
-            self._append_binary_sensor(item)   
+        component_type = item.get("hass_component_type", "sensor")
+        if component_type == "sensor":
+          self._append_sensor(item)   
+        if component_type == "binary_sensor":
+          self._append_binary_sensor(item)   
 
   #---------------------------------------------------
   def _append_sensor( self, item ):               
